@@ -3,10 +3,15 @@ The toolbox is developed for labeling images for binary classification with an a
 ![alt text](https://github.com/AmirMoMo/labeling-toolbox/blob/master/sample.png)
 # Functionality:
 Please set the directory of original and relabeled datasets in the code. We assumed that the images are saved with the *.png format, and data is organized with the following structure:
+
 data_dir/train/good/*.png
+
 data_dir/train/bad/*.png
+
 data_dir/valid/good/*.png
+
 data_dir/valid/bad/*.png
+
 You can use any arbitrary folder structure and image format and adjust the codel. Start the GUI and follow the instructions:
 ## Start: 
 Press the start bottom to initialize the labeling toolbox.
