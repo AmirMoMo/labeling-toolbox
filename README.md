@@ -1,3 +1,3 @@
 # labeling-toolbox
 The toolbox is developed for labeling images for binary classification with an additional class for uncertain samples.
-![alt text](https://github.com/AmirMoMo/labeling-toolbox/master/sample.png)
+![alt text](https://github.com/AmirMoMo/labeling-toolbox/sample.png)
