@@ -2,7 +2,7 @@
 The toolbox is developed for labeling images for binary classification with an additional class for uncertain samples. The Graphical User Interface looks like the following sample with the functionalities explained afterward:
 ![alt text](https://github.com/AmirMoMo/labeling-toolbox/blob/master/sample.png)
 # Functionality:
-Please set the directory of original and relabeled datasets in the code. We assumed that the images are saved with the *.png format, and data is organized with the following structure:  
+Please set the directory of original and relabeled datasets in the code. We assumed that the images are saved with "png" format, and data is organized with the following structure:  
 data_dir/train/good/*.png  
 data_dir/train/bad/*.png  
 data_dir/valid/good/*.png  
