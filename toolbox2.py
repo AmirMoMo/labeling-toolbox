@@ -46,7 +46,9 @@ def start():
     global results_dictionary
     data_dir = str(entry1.get())
     results_dir = str(entry2.get())
-    list_of_images = glob.glob(os.path.join(*[data_dir, '*', '*', '*.png']))
+    list_of_images = []
+    for depth in range(7):
+        list_of_images += glob.glob(os.path.join(*([data_dir]+depth*['*']+['*.png'])))
     if not os.path.isdir(results_dir):
         os.makedirs(results_dir)
         results_dictionary = dict(zip([], []))
