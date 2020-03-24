@@ -1,5 +1,6 @@
 import os
 import glob
+import random
 import numpy as np
 import tkinter as tk
 from PIL import Image
@@ -9,6 +10,8 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 # Define an image index:
 image_idx = 0
+is_figure = False
+print('Check point 0')
 
 # Define the GUI
 root = tk.Tk()
@@ -58,12 +61,12 @@ def start():
         results_dictionary = read_results()
         list_of_labeled_images = list(results_dictionary.keys())
         list_of_images = [item for item in list_of_images if not os.path.split(item)[-1] in list_of_labeled_images]
+    random.seed(10)
     shuffle(list_of_images)
     list_of_images += [os.path.join('.', 'good_job.jpg')]
     labels = list(-np.ones(len(list_of_images)))
-    print(image_idx)
-    if image_idx == 0:
-        show_next(False)
+    image_idx = 0
+    show_next()
 
 # Labeling actions
 def label_as_good():
@@ -111,12 +114,13 @@ def show_next(clear=True):
     global bar1
     global list_of_images
     global root
+    global is_figure
     if not image_idx > len(list_of_images)-1:
         #if len(list_of_images)>0:
         #    save_labels()
         #else:
         plt.close('all')
-        if clear:
+        if is_figure:
             bar1.get_tk_widget().pack_forget()
             save_labels()
         figure, axes = plt.subplots(figsize=(25, 16), dpi=100)
@@ -126,6 +130,7 @@ def show_next(clear=True):
         bar1.get_tk_widget().pack(side=tk.LEFT, fill=tk.BOTH, expand=0)
         print('Show next', image_idx, '/', len(list_of_images))
         print('Filename: {}'.format(os.path.split(list_of_images[image_idx])[-1]))
+        is_figure = True
 
 # Labeled the images and save the labels:
 def save_labels():
@@ -141,7 +146,7 @@ def previous_image():
     if image_idx > 0:
         image_idx -= 1
         show_next()
-
+print('Check point 1')
 button0 = tk.Button(root, text='{:^15}'.format('Start'), command=start, bg='lightskyblue2', font=('Arial', 25, 'bold'))
 canvas1.create_window(600, 240, window=button0)
 
@@ -159,5 +164,5 @@ canvas1.create_window(400, 400, window=button4)
 button6 = tk.Button(root, text='{:^15}'.format('Exit'), command=root.destroy, bg='lightskyblue2',
                     font=('Arial', 25, 'bold'))
 canvas1.create_window(800, 400, window=button6)
-
+print('Check point 2')
 root.mainloop()
