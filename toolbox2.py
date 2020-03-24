@@ -51,6 +51,8 @@ def start():
         list_of_images += glob.glob(os.path.join(*([data_dir]+depth*['*']+['*.png'])))
     if not os.path.isdir(results_dir):
         os.makedirs(results_dir)
+        with open(os.path.join(results_dir, 'labeling_results.txt'), 'w') as file:
+            file.write('')
         results_dictionary = dict(zip([], []))
     else:
         results_dictionary = read_results()
@@ -113,6 +115,7 @@ def show_next(clear=True):
         #if len(list_of_images)>0:
         #    save_labels()
         #else:
+        plt.close('all')
         if clear:
             bar1.get_tk_widget().pack_forget()
             save_labels()
@@ -122,6 +125,7 @@ def show_next(clear=True):
         axes.axis('off')
         bar1.get_tk_widget().pack(side=tk.LEFT, fill=tk.BOTH, expand=0)
         print('Show next', image_idx, '/', len(list_of_images))
+        print('Filename: {}'.format(os.path.split(list_of_images[image_idx])[-1]))
 
 # Labeled the images and save the labels:
 def save_labels():
@@ -134,16 +138,16 @@ def save_labels():
 # Go one image back to correct possible mistakes
 def previous_image():
     global image_idx
-    if image_idx-2 > -1:
+    if image_idx > 0:
         image_idx -= 1
-    show_next()
+        show_next()
 
 button0 = tk.Button(root, text='{:^15}'.format('Start'), command=start, bg='lightskyblue2', font=('Arial', 25, 'bold'))
 canvas1.create_window(600, 240, window=button0)
 
 button1 = tk.Button(root, text='{:^15}'.format('Good'), command=label_as_good, bg='green', font=('Arial', 25, 'bold'))
 canvas1.create_window(200, 320, window=button1)
-button2 = tk.Button(root, text='{:^15}'.format('Possible Reject'), command=label_as_possible, bg='yellow', font=('Arial', 25, 'bold'))
+button2 = tk.Button(root, text='{:^15}'.format('Undecidable'), command=label_as_possible, bg='yellow', font=('Arial', 25, 'bold'))
 canvas1.create_window(600, 320, window=button2)
 button3 = tk.Button(root, text='{:^15}'.format('Reject'), command=label_as_reject, bg='red',
                     font=('Arial', 25, 'bold'))
